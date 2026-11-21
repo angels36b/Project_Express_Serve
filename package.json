@@ -1,0 +1,19 @@
+{
+    "name": "todo-express-postgres",
+    "version": "1.0.0",
+    "description": "RESTful To-Do List application built with Node.js, Express, and PostgreSQL",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "node --watch server.js",
+      "db:init": "node scripts/initDb.js"
+        },
+    "engines": {
+        "node": ">=20.0.0"
+  },
+    "dependencies": {
+        "dotenv": "^16.4.5",
+        "express": "^4.21.1",
+        "pg": "^8.13.1"
+  }
+}
