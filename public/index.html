@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To-Do List — Express & PostgreSQL</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>To-Do List</h1>
+      <p class="subtitle">Node.js + Express + PostgreSQL</p>
+    </header>
+
+    <!--
+      NEED: Let the user provide their Bearer token at runtime without embedding secrets in source code.
+      SOLUTION: Render an authentication form first; keep the main workspace hidden until verified.
+      WHY?: Ensures compliance with the security rule that tokens must be passed from the UI, not hardcoded.
+    -->
+    <section id="auth-section" class="card">
+      <h2>API Authentication</h2>
+      <form id="auth-form" class="row-form">
+        <input
+          type="password"
+          id="token-input"
+          placeholder="Enter API Bearer token..."
+          required
+          autocomplete="off"
+        />
+        <button type="submit" class="btn primary">Connect</button>
+      </form>
+      <p id="auth-error" class="error-msg" hidden></p>
+    </section>
+
+    <!--
+      NEED: Display Moodle author metadata and provide full CRUD controls for tasks filtered by runId.
+      SOLUTION: Keep this section hidden by default and reveal it only after GET /api/author/ succeeds.
+      WHY?: Prevents unauthenticated users from interacting with empty or broken controls before login.
+    -->
+    <section id="app-section" hidden>
+      <div class="card author-bar">
+        <div>
+          <strong>Author:</strong> <span id="author-fullname"></span>
+          (<code id="author-login"></code>)
+        </div>
+        <button id="logout-btn" type="button" class="btn secondary">Disconnect</button>
+      </div>
+
+      <!-- RunId Filter & Task Creation Forms -->
+      <div class="card">
+        <form id="runid-form" class="row-form" style="margin-bottom: 1rem;">
+          <label for="runid-input"><strong>runId:</strong></label>
+          <input
+            type="text"
+            id="runid-input"
+            value="manual"
+            pattern="[A-Za-z0-9_-]{1,64}"
+            maxlength="64"
+            required
+          />
+          <button type="submit" class="btn secondary">Load Tasks</button>
+        </form>
+
+        <form id="create-form" class="row-form">
+          <input
+            type="text"
+            id="title-input"
+            placeholder="New task title (1-200 chars)..."
+            maxlength="200"
+            required
+          />
+          <button type="submit" class="btn primary">Add Task</button>
+        </form>
+        <p id="app-error" class="error-msg" hidden></p>
+      </div>
+
+      <!-- Tasks List Container -->
+      <div class="card">
+        <h2>Tasks (<span id="tasks-count">0</span>)</h2>
+        <ul id="tasks-list" class="tasks-list"></ul>
+      </div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

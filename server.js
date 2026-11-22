@@ -1,5 +1,5 @@
 // server.js
-const config = require('./src/config/env');
+const config = require('./src/config/env.js');
 const app = require('./src/app');
 const db = require('./src/config/db');
 
